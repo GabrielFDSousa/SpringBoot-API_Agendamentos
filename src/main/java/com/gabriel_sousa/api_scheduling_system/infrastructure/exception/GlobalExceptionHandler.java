@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UniqueKeyViolationException.class)
     public ResponseEntity<ExceptionResponse> handleUniqueKeyViolationException(UniqueKeyViolationException ex){
-        ExceptionResponse response = new ExceptionResponse(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), ex.getMessage(), LocalDateTime.now());
+        ExceptionResponse response = new ExceptionResponse(HttpStatus.CONFLICT, HttpStatus.BAD_REQUEST.value(), ex.getMessage(), LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
