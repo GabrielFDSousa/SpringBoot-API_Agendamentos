@@ -25,14 +25,9 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @Operation(
-            summary = "Cadastro",
-            description = "Cadastro de novos usuários",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Usuário cadastrado com sucesso.", content = @Content),
-                    @ApiResponse(responseCode = "409", description = "Email já vinculado a outro usuário.", content = @Content),
-            }
-    )
+    @Operation(summary = "Cadastro", description = "Cadastro de novos usuários")
+    @ApiResponse(responseCode = "409", description = "Email já vinculado a outro usuário.", content = @Content)
+    @ApiResponse(responseCode = "201", description = "Usuário cadastrado com sucesso.", content = @Content)
     @PostMapping("/sign-up")
     public ResponseEntity signUp(@RequestBody @Valid CreateUserDTO dto){
         authService.saveUser(dto);
@@ -41,14 +36,9 @@ public class AuthController {
                 .build();
     };
 
-    @Operation(
-            summary = "Login",
-            description = "Login de usuários",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Sucesso ao realizar login."),
-                    @ApiResponse(responseCode = "403", description = "Login não autorizado", content = @Content),
-            }
-    )
+    @Operation(summary = "Login", description = "Login de usuários")
+    @ApiResponse(responseCode = "200", description = "Sucesso ao realizar login.")
+    @ApiResponse(responseCode = "403", description = "Login não autorizado", content = @Content)
     @PostMapping("/sign-in")
     public ResponseEntity<SignInResponseDTO> signIn(@RequestBody @Valid SignInRequestDTO dto){
         var token = authService.login(dto);
